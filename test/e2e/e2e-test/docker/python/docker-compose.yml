@@ -141,6 +141,7 @@ services:
       SW_AGENT_COLLECTOR_BACKEND_SERVICES: oap:11800
       SW_AGENT_INSTANCE: provider-kafka-instance
       SW_KAFKA_REPORTER_BOOTSTRAP_SERVERS: broker-a:9092,broker-b:9092
+    command: ['bash', '-c', 'pip install kafka-python']
     depends_on:
       oap:
         condition: service_healthy
