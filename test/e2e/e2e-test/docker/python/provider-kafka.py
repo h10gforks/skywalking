@@ -39,7 +39,7 @@ if __name__ == '__main__':
             self.end_headers()
             self.wfile.write('{"name": "whatever"}'.encode('ascii'))
 
-    PORT = 9091
+    PORT = 9089
     Handler = SimpleHTTPRequestHandler
 
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
