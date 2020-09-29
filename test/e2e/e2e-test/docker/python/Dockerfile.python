@@ -27,3 +27,4 @@ RUN make setup install
 
 ADD ./consumer.py /consumer.py
 ADD ./provider.py /provider.py
+ADD ./provider-kafka.py /provider-kafka.py
