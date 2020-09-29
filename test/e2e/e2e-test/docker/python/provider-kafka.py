@@ -15,41 +15,31 @@
 # limitations under the License.
 #
 
-import urllib.parse
+import time
+
 from urllib import request
 
 from skywalking import agent, config
 
 if __name__ == '__main__':
-    config.service_name = 'consumer'
+    config.service_name = 'provider-kafka'
     config.logging_level = 'DEBUG'
-    config.protocol = 'http'
-    config.collector_address = 'http://oap:12800'
+    config.protocol = "kafka"
     agent.start()
 
     import socketserver
     from http.server import BaseHTTPRequestHandler
 
     class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+
         def do_POST(self):
+            time.sleep(0.5)
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Type', 'application/json')
             self.end_headers()
+            self.wfile.write('{"name": "whatever"}'.encode('ascii'))
 
-            data = '{"name": "whatever"}'.encode('utf8')
-            req = request.Request('http://medium:9092/users')
-            req.add_header('Content-Type', 'application/json; charset=utf-8')
-            req.add_header('Content-Length', str(len(data)))
-            with request.urlopen(req, data):
-                self.wfile.write(data)
-
-            req = request.Request("http://provider-kafka:9089/users")
-            req.add_header('Content-Type', 'application/json; charset=utf-8')
-            req.add_header('Content-Length', str(len(data)))
-            with request.urlopen(req, data):
-                self.wfile.write(data)
-
-    PORT = 9090
+    PORT = 9091
     Handler = SimpleHTTPRequestHandler
 
     with socketserver.TCPServer(("", PORT), Handler) as httpd:

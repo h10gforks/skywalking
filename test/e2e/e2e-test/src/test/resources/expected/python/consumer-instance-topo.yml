@@ -24,6 +24,10 @@ nodes:
     serviceId: not null
     serviceName: Your_ApplicationName
     isReal: true
+  - id: not null
+    name: not null
+    serviceId: not null
+    serviceName: provider-kafka
 calls:
   - id: not null
     source: Y29uc3VtZXI=.1_Y29uc3VtZXItaW5zdGFuY2U=
@@ -31,3 +35,9 @@ calls:
       - CLIENT
       - SERVER
     target: not null
+  - id: not null
+    source: Y29uc3VtZXI=.1_Y29uc3VtZXItaW5zdGFuY2U=
+    detectPoints:
+      - CLIENT
+      - SERVER
+      target: not null
